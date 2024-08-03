@@ -1,0 +1,16 @@
+.Toastify__toast-container {
+  width: 90%; /* Default width for mobile */
+  max-width: 400px; /* Maximum width for larger screens */
+}
+
+@media (min-width: 768px) {
+  .Toastify__toast-container {
+    width: 50%; /* Adjust width for tablets and larger devices */
+  }
+}
+
+@media (min-width: 1024px) {
+  .Toastify__toast-container {
+    width: 30%; /* Adjust width for desktops */
+  }
+}

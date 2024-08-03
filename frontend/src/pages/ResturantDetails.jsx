@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useOutletContext } from 'react-router-dom';
 import { FaStar, FaMapMarkerAlt, FaPhone, FaClock } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+
+import img1 from '../assets/pizza.jpg';
 
 const RestaurantDetailPage = () => {
     const { id } = useParams();
+    const { onCartUpdate } = useOutletContext();  // Access onCartUpdate from context
     const [restaurant, setRestaurant] = useState(null);
-    const [cart, setCart] = useState([]);
 
     useEffect(() => {
         const dummyRestaurant = {
@@ -16,19 +19,19 @@ const RestaurantDetailPage = () => {
             address: "123 Main St, City, Country",
             phone: "+1 234 567 8900",
             hours: "Mon-Sun: 11:00 AM - 10:00 PM",
-            image: "https://example.com/pizza-palace.jpg",
+            image: img1,
             menu: [
-                { id: 1, name: "Margherita Pizza", description: "Classic tomato and mozzarella", price: 12.99, image: "https://example.com/margherita.jpg" },
-                { id: 2, name: "Pepperoni Pizza", description: "Spicy pepperoni with mozzarella", price: 14.99, image: "https://example.com/pepperoni.jpg" },
-                { id: 3, name: "Vegetarian Pizza", description: "Assorted vegetables with mozzarella", price: 13.99, image: "https://example.com/vegetarian.jpg" },
+                { id: 1, name: "Margherita Pizza", description: "Classic tomato and mozzarella", price: 12.99, image: img1 },
+                { id: 2, name: "Pepperoni Pizza", description: "Spicy pepperoni with mozzarella", price: 14.99, image: img1 },
+                { id: 3, name: "Vegetarian Pizza", description: "Assorted vegetables with mozzarella", price: 13.99, image: img1 },
             ]
         };
         setRestaurant(dummyRestaurant);
     }, [id]);
 
     const addToCart = (item) => {
-        setCart([...cart, item]);
-        alert(`${item.name} added to cart!`);
+        onCartUpdate(item);
+        toast.success(`${item.name} added to cart!`);
     };
 
     if (!restaurant) return <div>Loading...</div>;
@@ -39,7 +42,7 @@ const RestaurantDetailPage = () => {
                 <div className="bg-white shadow-xl rounded-lg overflow-hidden">
                     <div className="md:flex">
                         <div className="md:flex-shrink-0">
-                            <img className="h-48 w-full object-cover md:w-48" src={restaurant.image} alt={restaurant.name} />
+                            <img className="h-full w-full object-cover md:w-48" src={restaurant.image} alt={restaurant.name} />
                         </div>
                         <div className="p-8">
                             <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{restaurant.category}</div>

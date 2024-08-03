@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { FaSearch, FaUserCircle } from 'react-icons/fa';
+import PropTypes from 'prop-types';
+import { FaSearch, FaUserCircle, FaShoppingCart } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
 
-const Header = () => {
+const Header = ({ cartItems }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const { isLoggedIn, logout } = useAuth();
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Header = () => {
                 </div>
 
                 {/* Search Bar */}
-                <div className="flex items-center bg-gray-100 rounded-lg overflow-hidden w-full max-w-full sm:max-w-xs md:max-w-sm lg:max-w-md ml-5">
+                <div className="flex items-center bg-gray-100 rounded-lg overflow-hidden w-full max-w-full sm:max-w-xs md:max-w-sm lg:max-w-md ml-5 mr-5">
                     <input
                         type="text"
                         placeholder="Search restaurants, dishes..."
@@ -39,9 +40,15 @@ const Header = () => {
                 </div>
 
                 <div className="relative flex items-center">
+
                     {isLoggedIn ? (
                         <>
-                            {/* User Icon */}
+                            <Link to={'/cart'} className="relative">
+                                <FaShoppingCart size={28} />
+                                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
+                                    {cartItems.length}
+                                </span>
+                            </Link>
                             <button onClick={toggleDropdown} className="text-gray-700 focus:outline-none ml-4 relative z-20">
                                 <FaUserCircle size={28} />
                             </button>
@@ -85,5 +92,10 @@ const Header = () => {
         </header>
     );
 };
+
+Header.propTypes = {
+    cartItems: PropTypes.arrayOf(PropTypes.object),
+};
+
 
 export default Header;

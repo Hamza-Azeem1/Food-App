@@ -5,6 +5,7 @@ import LoginPage from '../pages/Login';
 import RegistrationPage from '../pages/Registration';
 import RestaurantListingPage from '../pages/ResturantListing';
 import RestaurantDetailPage from '../pages/ResturantDetails';
+import Cart from '../pages/Cart';
 
 const router = createBrowserRouter([
     {
@@ -28,8 +29,12 @@ const router = createBrowserRouter([
                 element: <RestaurantListingPage />,
             },
             {
-                path: '/resturant/:id',
+                path: '/restaurant/:id',
                 element: <RestaurantDetailPage />,
+            },
+            {
+                path: '/cart',
+                element: <Cart />,  // No need for loader here
             },
         ],
     },
