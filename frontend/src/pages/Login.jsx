@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
+import { toast } from 'react-toastify';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -16,7 +17,8 @@ const LoginPage = () => {
 
         if (storedUser && storedUser.email === email && storedUser.password === password) {
             login(() => {
-                navigate('/'); // Redirect to homepage after login
+                toast.success('Login successful!');
+                navigate('/');
             });
         } else {
             setMessage('Invalid email or password');

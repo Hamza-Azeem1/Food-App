@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const RegistrationPage = () => {
     const [name, setName] = useState('');
@@ -13,7 +14,7 @@ const RegistrationPage = () => {
         const user = { name, email, password };
         localStorage.setItem('user', JSON.stringify(user));
 
-        alert('Registration successful! Please login.');
+        toast.success('Registration successful! Please login.');
         navigate('/login');
     };
 

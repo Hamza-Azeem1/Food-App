@@ -7,7 +7,7 @@ import img1 from '../assets/pizza.jpg';
 
 const RestaurantDetailPage = () => {
     const { id } = useParams();
-    const { onCartUpdate } = useOutletContext();  // Access onCartUpdate from context
+    const { onCartUpdate } = useOutletContext();
     const [restaurant, setRestaurant] = useState(null);
 
     useEffect(() => {

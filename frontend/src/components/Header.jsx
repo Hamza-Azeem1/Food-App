@@ -7,7 +7,15 @@ import { useAuth } from '../context/authContext';
 const Header = ({ cartItems }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const { isLoggedIn, logout } = useAuth();
+    const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
+
+    const handleSearch = (e) => {
+        if (e.key === 'Enter' || e.type === 'click') {
+            navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+        }
+    };
+
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -16,7 +24,7 @@ const Header = ({ cartItems }) => {
     const handleLogout = () => {
         logout();
         setIsDropdownOpen(false);
-        navigate('/login');
+        navigate('/');
     };
 
     return (
@@ -33,14 +41,19 @@ const Header = ({ cartItems }) => {
                         type="text"
                         placeholder="Search restaurants, dishes..."
                         className="w-full py-2 px-4 bg-gray-100 text-gray-700 outline-none"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onKeyPress={handleSearch}
                     />
-                    <button className="bg-indigo-500 text-white p-2">
+                    <button
+                        className="bg-indigo-500 text-white p-2 rounded h-[36px] w-[40px] text-center"
+                        onClick={handleSearch}
+                    >
                         <FaSearch />
                     </button>
                 </div>
 
                 <div className="relative flex items-center">
-
                     {isLoggedIn ? (
                         <>
                             <Link to={'/cart'} className="relative">
@@ -49,6 +62,7 @@ const Header = ({ cartItems }) => {
                                     {cartItems.length}
                                 </span>
                             </Link>
+                            {/* User Icon */}
                             <button onClick={toggleDropdown} className="text-gray-700 focus:outline-none ml-4 relative z-20">
                                 <FaUserCircle size={28} />
                             </button>
@@ -56,20 +70,32 @@ const Header = ({ cartItems }) => {
                             {/* Dropdown Menu */}
                             {isDropdownOpen && (
                                 <div className="absolute right-0 mt-36 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
-                                    <Link to="/my-orders" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+                                    <Link
+                                        to="/my-orders"
+                                        className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                                        onClick={() => setIsDropdownOpen(false)}
+                                    >
                                         My Orders
                                     </Link>
-                                    <Link to="/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+                                    <Link
+                                        to="/user-profile"
+                                        className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                                        onClick={() => setIsDropdownOpen(false)}
+                                    >
                                         Profile
                                     </Link>
                                     <button
-                                        onClick={handleLogout}
+                                        onClick={() => {
+                                            handleLogout();
+                                            setIsDropdownOpen(false);
+                                        }}
                                         className="lg:hidden sm:block w-full text-left px-4 py-2 bg-red-500 text-white hover:bg-red-800 rounded-lg"
                                     >
                                         Logout
                                     </button>
                                 </div>
                             )}
+
 
                             {/* Logout Button */}
                             <button
@@ -96,6 +122,5 @@ const Header = ({ cartItems }) => {
 Header.propTypes = {
     cartItems: PropTypes.arrayOf(PropTypes.object),
 };
-
 
 export default Header;

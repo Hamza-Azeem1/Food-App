@@ -1,5 +1,6 @@
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import scrollToTop from '../helpers/Scroll'
 
 const Footer = () => {
     return (
@@ -16,9 +17,9 @@ const Footer = () => {
                 {/* Navigation Links */}
                 <div>
                     <h3 className="text-lg font-bold mb-4">Quick Links</h3>
-                    <ul>
+                    <ul onClick={scrollToTop}>
                         <li className="mb-2"><Link to="/" className="hover:text-white">Home</Link></li>
-                        <li className="mb-2"><Link to="/RestaurantListingPage" className="hover:text-white">Restaurants</Link></li>
+                        <li className="mb-2"><Link to="/resturant-listing" className="hover:text-white">Restaurants</Link></li>
                         <li className="mb-2"><Link to="/contact" className="hover:text-white">Contact Us</Link></li>
                         <li className="mb-2"><Link to="/about" className="hover:text-white">About Us</Link></li>
                     </ul>

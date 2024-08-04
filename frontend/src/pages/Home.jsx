@@ -1,11 +1,13 @@
 import { FiArrowRight } from 'react-icons/fi';
 import { FaPizzaSlice, FaHamburger, FaFish } from 'react-icons/fa';
 import { GiNoodles, GiSushis, GiIndianPalace } from 'react-icons/gi';
+import { Link } from 'react-router-dom';
+import scrollToTop from '../helpers/Scroll'
+
 import img1 from '../assets/hero.jpg'
 import img2 from '../assets/burger.jpg'
 import img3 from '../assets/pizza.jpg'
 import img4 from '../assets/sushi.jpg'
-import { Link } from 'react-router-dom';
 
 const HomePage = () => {
     const featuredRestaurants = [
@@ -78,6 +80,7 @@ const HomePage = () => {
                     <Link
                         to={'/resturant-listing'}
                         className="bg-yellow-500 text-white text-center py-2 px-6 rounded-lg hover:bg-yellow-600 transition duration-300 flex items-center"
+                        onClick={scrollToTop}
                     >
                         Explore more <FiArrowRight className="ml-2" />
                     </Link>

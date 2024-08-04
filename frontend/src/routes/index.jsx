@@ -6,6 +6,10 @@ import RegistrationPage from '../pages/Registration';
 import RestaurantListingPage from '../pages/ResturantListing';
 import RestaurantDetailPage from '../pages/ResturantDetails';
 import Cart from '../pages/Cart';
+import SearchPage from '../pages/SearchPage';
+import Profile from '../pages/Profile';
+import Orders from '../pages/Orders';
+import PageNotFound from '../pages/PageNotFound';
 
 const router = createBrowserRouter([
     {
@@ -34,8 +38,24 @@ const router = createBrowserRouter([
             },
             {
                 path: '/cart',
-                element: <Cart />,  // No need for loader here
+                element: <Cart />,
             },
+            {
+                path: '/search',
+                element: <SearchPage />,
+            },
+            {
+                path: '/user-profile',
+                element: <Profile />,
+            },
+            {
+                path: '/my-orders',
+                element: <Orders />,
+            },
+            {
+                path: '/*',
+                element: <PageNotFound />
+            }
         ],
     },
 ]);
